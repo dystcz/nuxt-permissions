@@ -1,4 +1,4 @@
-import { defineNuxtPlugin, useState, addRouteMiddleware } from '#app'
+import { defineNuxtPlugin, useCookie, addRouteMiddleware } from '#app'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const userRoles = useCookie<string[]>('roles') || []

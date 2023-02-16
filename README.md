@@ -1,1 +1,3 @@
-# under construction, do not use
+# nuxt-permissions
+
+## under construction, do not use

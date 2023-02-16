@@ -5,8 +5,8 @@ export interface ModuleOptions {}
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: 'nuxt-permission',
-    configKey: 'nuxtPermission'
+    name: 'nuxt-permissions',
+    configKey: 'nuxtPermissions'
   },
   // Default configuration options of the Nuxt module
   defaults: {},

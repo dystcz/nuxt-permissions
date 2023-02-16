@@ -1,4 +1,5 @@
 <script setup>
+import { definePageMeta, useCookie, useRoute } from '#imports'
 const route = useRoute()
 const userPermissions = useCookie('permissions')
 userPermissions.value =

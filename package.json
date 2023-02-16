@@ -1,6 +1,6 @@
 {
-  "name": "nuxt-permission",
-  "version": "1.0.0",
+  "name": "nuxt-permissions",
+  "version": "0.0.2",
   "description": "Nuxt 3 module for permission management",
   "license": "MIT",
   "type": "module",
@@ -21,7 +21,7 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
-    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "release": "npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
     "test": "vitest run",
     "test:watch": "vitest watch"
   },
@@ -36,5 +36,22 @@
     "nuxt": "^3.2.0",
     "prettier": "^2.8.4",
     "vitest": "^0.28.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dystcz/nuxt-permissions.git"
+  },
+  "keywords": [
+    "nuxt3",
+    "typescript",
+    "nuxt module",
+    "permissions",
+    "roles",
+    "nuxt"
+  ],
+  "author": "Paul Cross <me@paulcross.cz> (https://paulcross.cz/)",
+  "bugs": {
+    "url": "https://github.com/dystcz/nuxt-permissions/issues"
+  },
+  "homepage": "https://github.com/dystcz/nuxt-permissions#readme"
 }
