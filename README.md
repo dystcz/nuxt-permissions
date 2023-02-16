@@ -2,8 +2,10 @@
 
 [![npm version](https://badge.fury.io/js/nuxt-permissions.svg)](https://badge.fury.io/js/nuxt-permissions)
 
-This is a simple package for integration of roles and permissions.
-This package **should not be used as only solution**, it's designed to complement backend permissions.
+This is a simple package for integrating roles and permissions with a Nuxt application.
+It is designed to complement backend permissions, and should not be used as the sole solution.
+
+Please note that this package is a work in progress and is subject to change.
 
 ## Installation
 
@@ -26,9 +28,9 @@ export default defineNuxtConfig({
 
 ## Usage
 
-### Setting user's permissions or roles
+### Setting user permissions or roles
 
-To set user's permissions you must set a cookie named `permissions` or `roles` containing array of permissions or roles as `string[]`.
+To set user permissions or roles, you must set a cookie named `permissions` or `roles` containing an array of permissions or roles as strings.
 
 ```ts
 const userPermissions = useCookie('permissions')
@@ -39,11 +41,11 @@ userPermissions.value = user.permissions // ['read posts', ..., 'delete posts']
 userRoles.value = user.roles // ['admin', 'editor']
 ```
 
-### middleware usage
+### Middleware usage
 
-To use predefined middleware you must set `permissions` or `roles` in `definePageMeta`. For example for admin dashboard you would set `roles` to `['admin']` and/or `permissions` to `['access dashboard']`, of course depending on your backend settings.
+To use the predefined middleware, you must set `permissions` or `roles` in `definePageMeta`. For example, for the admin dashboard, you would set `roles` to `['admin']` and/or `permissions` to `['access dashboard']`, depending on your backend settings.
 
-You can use combination of both, **permissions have higher priority then roles**
+You can use a combination of both, but permissions have higher priority than roles.
 
 If roles or permissions are not set, access to that page is unrestricted.
 
@@ -57,7 +59,7 @@ definePageMeta({
 
 ### Directives
 
-Directives can be `string` or `string[]`. If array is passed, it is enough for only one item to apply and the condition will be fulfilled.
+Directives can be a string or an array of strings. If an array is passed, only one item needs to apply for the condition to be fulfilled.
 
 #### v-can
 
@@ -98,3 +100,9 @@ Works as negated `v-if` but for roles
   You are not admin
 </div>
 ```
+
+## Development
+
+- Run `npm run dev:prepare` to generate type stubs.
+- Use `npm run dev` to start playground in development mode.
+- Use `npm run test` to run tests.
