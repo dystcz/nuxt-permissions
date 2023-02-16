@@ -1,0 +1,40 @@
+{
+  "name": "nuxt-permission",
+  "version": "1.0.0",
+  "description": "Nuxt 3 module for permission management",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
+    }
+  },
+  "main": "./dist/module.cjs",
+  "types": "./dist/types.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "nuxt-module-build",
+    "dev": "nuxi dev playground",
+    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
+    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "test": "vitest run",
+    "test:watch": "vitest watch"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^3.2.0"
+  },
+  "devDependencies": {
+    "@nuxt/module-builder": "^0.2.1",
+    "@nuxt/schema": "^3.2.0",
+    "@nuxt/test-utils": "^3.2.0",
+    "changelogen": "^0.4.1",
+    "nuxt": "^3.2.0",
+    "prettier": "^2.8.4",
+    "vitest": "^0.28.5"
+  }
+}
