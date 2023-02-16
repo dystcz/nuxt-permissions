@@ -50,9 +50,7 @@ If roles or permissions are not set, access to that page is unrestricted.
 ```ts
 // ~/pages/admin/dashboard
 definePageMeta({
-  // role
   roles: ['admin'],
-  // permissions
   permissions: ['access dashboard']
 })
 ```
