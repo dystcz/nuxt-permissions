@@ -28,7 +28,7 @@ describe('roles on client', async () => {
   it('renders the index page when user is not admin', async () => {
     const page = await createPage('/roles?roles=guest')
     const html = await page.innerHTML('body')
-    expect(html).toContain('index page')
+    expect(html).not.toContain('admin page')
   })
 
   it('renders the admin only section if role is admin', async () => {

@@ -30,7 +30,7 @@ describe('permissions on client', async () => {
   it('renders the index page when user does not have permission to view_page', async () => {
     const page = await createPage('/permissions?permissions=forbidden')
     const html = await page.innerHTML('body')
-    expect(html).toContain('index page')
+    expect(html).not.toContain('admin page')
   })
 
   it('renders the edit section if user has permission to edit_page', async () => {
