@@ -51,13 +51,15 @@ If roles or permissions are not set, access to that page is unrestricted.
 // ~/pages/admin/dashboard
 definePageMeta({
   // role
-  roles: ['admin']
+  roles: ['admin'],
   // permissions
   permissions: ['access dashboard']
 })
 ```
 
 ### Directives
+
+Directives can be `string` or `string[]`. If array is passed, it is enough for only one item to apply and the condition will be fulfilled.
 
 #### v-can
 
