@@ -46,6 +46,10 @@ export default defineNuxtPlugin((nuxtApp) => {
         return true
       }
 
+      if (from.fullPath !== to.fullPath) {
+        return from.fullPath
+      }
+
       return '/'
     },
     {
