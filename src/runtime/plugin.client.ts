@@ -26,8 +26,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   addRouteMiddleware(
     'roles-and-permissions',
     (to, from) => {
-      console.log(userRoles.value)
-      console.log(to.meta)
       const routePermissions = to.meta?.permissions as
         | string
         | string[]
