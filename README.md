@@ -6,7 +6,8 @@
 This is a simple package for integrating roles and permissions with a Nuxt application.
 It is designed to complement backend permissions, and should not be used as the sole solution.
 
-Please note that this package is a work in progress and is subject to change.
+Please note that this is alpha quality software and **should not be used in production**.
+This package is a work in progress and is subject to change.
 
 ## Installation
 
