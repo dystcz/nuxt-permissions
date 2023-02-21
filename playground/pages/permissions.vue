@@ -8,6 +8,7 @@ userPermissions.value =
     : route.query.permissions
 
 definePageMeta({
+  middleware: ['nuxt-permissions'],
   permissions: ['view_page', 'edit_page', 'test_page']
 })
 </script>

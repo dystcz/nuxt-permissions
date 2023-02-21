@@ -2,12 +2,11 @@
 import { definePageMeta, useCookie, useRoute } from '#imports'
 const route = useRoute()
 const userRoles = useCookie('roles')
-userRoles.value =
-  typeof route.query.roles === 'string'
-    ? [route.query.roles]
-    : route.query.roles
+
+console.log(userRoles.value)
 
 definePageMeta({
+  middleware: ['nuxt-permissions'],
   roles: ['admin', 'user', 'editor']
 })
 </script>
