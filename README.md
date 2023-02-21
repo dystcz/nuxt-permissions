@@ -56,7 +56,7 @@ definePageMeta({
   middleware: [
     'auth', // your auth middleware
     'nuxt-permissions'
-  ]
+  ],
   roles: ['admin'],
   permissions: ['access dashboard']
 })
