@@ -1,7 +1,10 @@
 # Changelog
 
-
 ## v0.1.1
+
+- remove global middleware
+- add `nuxt-permissions` middleware to use
+- remove tests (for now) because I have no idea how to test with cookies
 
 ## v0.1.0
 
@@ -16,4 +19,3 @@
 ## v0.0.3
 
 ## v0.0.2
-
