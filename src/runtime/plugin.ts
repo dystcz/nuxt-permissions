@@ -1,8 +1,15 @@
 import { defineNuxtPlugin, useCookie, addRouteMiddleware } from '#app'
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const userRoles = useCookie<string[]>('roles') || []
-  const userPermissions = useCookie<string[]>('permissions') || []
+  const userRoles = useCookie<string | string[]>('roles')
+  const userPermissions = useCookie<string | string[]>('permissions')
+
+  if (typeof userRoles.value === 'string') {
+    userRoles.value = [userRoles.value]
+  }
+  if (typeof userPermissions.value === 'string') {
+    userPermissions.value = [userPermissions.value]
+  }
 
   function hasRequiredPermissions(permissions: string | string[] | undefined) {
     if (!permissions) return
@@ -11,7 +18,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       typeof permissions === 'string' ? [permissions] : permissions
 
     return routePermissions.some((permission) => {
-      return userPermissions.value.includes(permission)
+      return (userPermissions.value || []).includes(permission)
     })
   }
 
@@ -20,46 +27,40 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     const myRoles = typeof roles === 'string' ? [roles] : roles
 
-    return myRoles.some((role) => userRoles.value.includes(role))
+    return myRoles.some((role) => (userRoles.value || []).includes(role))
   }
 
-  addRouteMiddleware(
-    'roles-and-permissions',
-    (to, from) => {
-      const routePermissions = to.meta?.permissions as
-        | string
-        | string[]
-        | undefined
-      const routeRoles = to.meta?.roles as string | string[] | undefined
+  addRouteMiddleware('nuxt-permissions', (to, from) => {
+    const routePermissions = to.meta?.permissions as
+      | string
+      | string[]
+      | undefined
+    const routeRoles = to.meta?.roles as string | string[] | undefined
 
-      if (!routePermissions && !routeRoles) {
-        return true
-      }
-
-      if (routePermissions && hasRequiredPermissions(routePermissions)) {
-        return true
-      }
-
-      if (routeRoles && hasRequiredRoles(routeRoles)) {
-        return true
-      }
-
-      if (from.fullPath !== to.fullPath) {
-        return from.fullPath
-      }
-
-      return '/'
-    },
-    {
-      global: true
+    if (!routePermissions && !routeRoles) {
+      return true
     }
-  )
+
+    if (routePermissions && hasRequiredPermissions(routePermissions)) {
+      return true
+    }
+
+    if (routeRoles && hasRequiredRoles(routeRoles)) {
+      return true
+    }
+
+    if (from.fullPath !== to.fullPath) {
+      return from.fullPath
+    }
+
+    return '/'
+  })
 
   function hasNotPermission(binding: string | string[] | undefined) {
     if (!binding) return true
     const activePermissions = typeof binding === 'string' ? [binding] : binding
     return !activePermissions.some((permission) =>
-      userPermissions.value.includes(permission)
+      (userPermissions.value || []).includes(permission)
     )
   }
 
@@ -92,7 +93,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   function hasNotRole(binding: string | string[] | undefined) {
     if (!binding) return true
     const activeRoles = typeof binding === 'string' ? [binding] : binding
-    return !activeRoles.some((role) => userRoles.value.includes(role))
+    return !activeRoles.some((role) => (userRoles.value || []).includes(role))
   }
 
   function hasRole(binding: string | string[]) {
