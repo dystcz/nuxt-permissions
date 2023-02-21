@@ -1,7 +1,6 @@
 # Nuxt Permissions
 
 [![npm version](https://badge.fury.io/js/nuxt-permissions.svg)](https://badge.fury.io/js/nuxt-permissions)
-[![Tests](https://github.com/dystcz/nuxt-permissions/actions/workflows/node.js.yml/badge.svg)](https://github.com/dystcz/nuxt-permissions/actions/workflows/node.js.yml)
 
 This is a simple package for integrating roles and permissions with a Nuxt application.
 It is designed to complement backend permissions, and should not be used as the sole solution.
