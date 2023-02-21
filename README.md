@@ -44,7 +44,7 @@ userRoles.value = user.roles // ['admin', 'editor']
 
 ### Middleware usage
 
-To use the predefined middleware, you must set `nuxt-permissions` as middleware and add `permissions` or `roles` in `definePageMeta`. For example, for the admin dashboard, you would set `roles` to `['admin']` and/or `permissions` to `['access dashboard']`, depending on your backend settings.
+To use the module, you must set `nuxt-permissions` as middleware and add `permissions` or `roles` in `definePageMeta`. For example, for the admin dashboard, you would set `roles` to `['admin']` and/or `permissions` to `['access dashboard']`, depending on your backend settings.
 
 You can use a combination of both, but permissions have higher priority than roles.
 
