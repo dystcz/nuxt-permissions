@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, useCookie } from '#imports'
+const test = useCookie<string>('test')
 const userRoles = useCookie<string[]>('roles')
 const userPermissions = useCookie<string[]>('permissions')
 
@@ -23,6 +24,7 @@ const setPermission = () => {
 <template>
   <div>
     <div>index page</div>
+    {{ test }}
 
     <h2>User roles</h2>
     <ul>
