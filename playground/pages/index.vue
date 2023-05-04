@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, useCookie } from '#imports'
+import { ref, useCookie, useNuxtApp } from '#imports'
 const userRoles = useCookie<string[]>('roles')
 const userPermissions = useCookie<string[]>('permissions')
 
@@ -18,6 +18,8 @@ const setPermission = () => {
   userPermissions.value.push(permission.value)
   permission.value = ''
 }
+
+const { $hasPermission, $hasRole } = useNuxtApp()
 </script>
 
 <template>
@@ -54,5 +56,13 @@ const setPermission = () => {
       <input placeholder="permission" type="text" v-model="permission" />
       <button tupe="submit">setPermission</button>
     </form>
+
+    <div style="margin-top: 3rem" v-if="$hasRole('admin')">
+      This section is visible to admins only
+    </div>
+
+    <div style="margin-top: 3rem" v-if="$hasPermission('edit')">
+      This section is visible to user with permission "edit"
+    </div>
   </div>
 </template>

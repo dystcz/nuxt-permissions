@@ -116,4 +116,11 @@ export default defineNuxtPlugin((nuxtApp) => {
       return {}
     }
   })
+
+  return {
+    provide: {
+      hasRole,
+      hasPermission
+    }
+  }
 })
