@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.1.2
+
+
+### 🚀 Enhancements
+
+  - Expose hasPermission and hasRoles functions (e356102)
+
+### ❤️  Contributors
+
+- Carpad88 <carpad88@gmail.com>
+
 ## v0.1.1
 
 - remove global middleware
