@@ -1,6 +1,9 @@
-import { defineNuxtPlugin, useCookie, addRouteMiddleware } from '#app'
+import { defineNuxtPlugin, useCookie, addRouteMiddleware, useRuntimeConfig } from '#app'
+import { ModuleOptions } from '../module';
 
 export default defineNuxtPlugin((nuxtApp) => {
+  const config: ModuleOptions = useRuntimeConfig().public.nuxtPermissions
+
   const userRoles = useCookie<string | string[]>('roles')
   const userPermissions = useCookie<string | string[]>('permissions')
 
@@ -53,7 +56,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       return from.fullPath
     }
 
-    return '/'
+    return config.redirectIfNotAllowed
   })
 
   function hasNotPermission(binding: string | string[] | undefined) {

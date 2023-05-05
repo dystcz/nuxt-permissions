@@ -1,4 +1,6 @@
 export default defineNuxtConfig({
   modules: ['../src/module'],
-  nuxtPermissions: {}
+  nuxtPermissions: {
+    redirectIfNotAllowed: '/not-allowed' // default: '/'
+  }
 })
