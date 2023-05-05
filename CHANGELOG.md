@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.1.5
+
+
+### 🚀 Enhancements
+
+  - Add config option to have dynamic redirection (603e4b4)
+
+### ❤️  Contributors
+
+- Carpad88 <carpad88@gmail.com>
+
 ## v0.1.4
 
 ## v0.1.3
