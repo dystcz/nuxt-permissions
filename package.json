@@ -1,6 +1,6 @@
 {
   "name": "nuxt-permissions",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Nuxt 3 module for permission management",
   "license": "MIT",
   "type": "module",
