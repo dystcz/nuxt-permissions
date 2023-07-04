@@ -4,7 +4,6 @@ import { useRoles, usePermissions } from './composables'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const config: ModuleOptions = useRuntimeConfig().public.nuxtPermissions
-  console.log(config)
 
   const userRoles = useRoles()
   const userPermissions = usePermissions()
