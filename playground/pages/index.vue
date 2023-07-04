@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { ref, useCookie, useNuxtApp } from '#imports'
-const userRoles = useCookie<string[]>('roles')
-const userPermissions = useCookie<string[]>('permissions')
+// @ts-ignore
+import { ref, useNuxtApp, useRoles, usePermissions } from '#imports'
+
+const userRoles = useRoles()
+const userPermissions = usePermissions()
 
 const role = ref('')
 const setRole = () => {
   if (!role.value) return
-  if (!userRoles.value) userRoles.value = []
   userRoles.value.push(role.value)
   role.value = ''
 }
@@ -14,7 +15,6 @@ const setRole = () => {
 const permission = ref('')
 const setPermission = () => {
   if (!permission.value) return
-  if (!userPermissions.value) userPermissions.value = []
   userPermissions.value.push(permission.value)
   permission.value = ''
 }
@@ -27,6 +27,7 @@ const { $hasPermission, $hasRole } = useNuxtApp()
     <div>index page</div>
 
     <h2>User roles</h2>
+    {{ userRoles }}
     <ul>
       <li v-for="(role, r) in userRoles">
         <span>

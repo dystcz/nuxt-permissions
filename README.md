@@ -16,10 +16,11 @@ yarn add nuxt-permissions
 npm i nuxt-permissions
 ```
 
-Introduce the module into the `nuxt.config.[js,ts]`.
+Introduce the module into the `nuxt.config.[js,ts]`. and set `ssr` to `false`
 
 ```js
 export default defineNuxtConfig({
+  ssr: false,
   modules: [
     'nuxt-permissions'
     // ...
@@ -31,11 +32,11 @@ export default defineNuxtConfig({
 
 ### Setting user permissions or roles
 
-To set user permissions or roles, you must set a cookie named `permissions` or `roles` containing an array of permissions or roles as strings.
+To set user permissions or roles, you must use a `usePermissions` or `useRoles` composable, that contains an array of strings for permissions or roles.
 
 ```ts
-const userPermissions = useCookie('permissions')
-const userRoles = useCookie('roles')
+const userPermissions = usePermissions()
+const userRoles = useRoles()
 
 const user = await login() // your login functionality
 userPermissions.value = user.permissions // ['read posts', ..., 'delete posts']
@@ -74,6 +75,10 @@ Works as `v-if` but for permissions
 <button v-can="'edit posts'">
   Edit
 </button>
+<!-- or -->
+<button v-can="['edit posts', 'view posts']">
+  View or edit
+</button>
 ```
 
 #### v-can:not
@@ -83,6 +88,10 @@ Works as negated `v-if` but for permissions
 ```vue
 <div v-can:not="'edit posts'">
   You do not have permissions to edit this post
+</div>
+<!-- or -->
+<div v-can:not="['edit posts', 'view posts']">
+  You do not have permissions to edit nor view this post
 </div>
 ```
 
@@ -94,6 +103,10 @@ Works as `v-if` but for roles
 <div v-role="'admin'">
   You are admin
 </div>
+<!-- or -->
+<div v-role="['admin', 'editor']">
+  You are admin or editor
+</div>
 ```
 
 #### v-role:not
@@ -103,6 +116,10 @@ Works as negated `v-if` but for roles
 ```vue
 <div v-role:not="'admin'">
   You are not admin
+</div>
+<!--  -->
+<div v-role:not="['admin', 'editor']">
+  You are not admin nor editor
 </div>
 ```
 

@@ -1,12 +1,5 @@
 <script setup>
-import { definePageMeta, useCookie, useRoute } from '#imports'
-const route = useRoute()
-const userPermissions = useCookie('permissions')
-userPermissions.value =
-  typeof route.query.permissions === 'string'
-    ? [route.query.permissions]
-    : route.query.permissions
-
+import { definePageMeta } from '#imports'
 definePageMeta({
   middleware: ['nuxt-permissions'],
   permissions: ['view_page', 'edit_page', 'test_page']

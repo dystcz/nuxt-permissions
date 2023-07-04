@@ -26,7 +26,8 @@
     "test:watch": "vitest watch"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.2.0"
+    "@nuxt/kit": "^3.2.0",
+    "@vueuse/core": "^10.2.1"
   },
   "devDependencies": {
     "@nuxt/module-builder": "^0.2.1",

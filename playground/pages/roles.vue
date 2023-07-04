@@ -1,9 +1,5 @@
 <script setup>
-import { definePageMeta, useCookie, useRoute } from '#imports'
-const route = useRoute()
-const userRoles = useCookie('roles')
-
-console.log(userRoles.value)
+import { definePageMeta } from '#imports'
 
 definePageMeta({
   middleware: ['nuxt-permissions'],

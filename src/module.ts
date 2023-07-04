@@ -1,4 +1,9 @@
-import { defineNuxtModule, addPlugin, createResolver } from '@nuxt/kit'
+import {
+  defineNuxtModule,
+  addPlugin,
+  addImports,
+  createResolver
+} from '@nuxt/kit'
 
 // Module options TypeScript inteface definition
 export interface ModuleOptions {
@@ -18,9 +23,19 @@ export default defineNuxtModule<ModuleOptions>({
   defaults,
   setup(options, nuxt) {
     nuxt.options.runtimeConfig.public.nuxtPermissions = options
-    const resolver = createResolver(import.meta.url)
+    const { resolve } = createResolver(import.meta.url)
+    addPlugin(resolve('./runtime/plugin'))
 
-    // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
-    addPlugin(resolver.resolve('./runtime/plugin'))
+    addImports({
+      name: 'useRoles',
+      as: 'useRoles',
+      from: resolve('runtime/composables')
+    })
+
+    addImports({
+      name: 'usePermissions',
+      as: 'usePermissions',
+      from: resolve('runtime/composables')
+    })
   }
 })

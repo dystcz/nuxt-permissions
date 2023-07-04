@@ -1,11 +1,13 @@
-import { defineNuxtPlugin, useCookie, addRouteMiddleware, useRuntimeConfig } from '#app'
-import { ModuleOptions } from '../module';
+import { defineNuxtPlugin, addRouteMiddleware, useRuntimeConfig } from '#app'
+import type { ModuleOptions } from '../module'
+import { useRoles, usePermissions } from './composables'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const config: ModuleOptions = useRuntimeConfig().public.nuxtPermissions
+  console.log(config)
 
-  const userRoles = useCookie<string | string[]>('roles')
-  const userPermissions = useCookie<string | string[]>('permissions')
+  const userRoles = useRoles()
+  const userPermissions = usePermissions()
 
   if (typeof userRoles.value === 'string') {
     userRoles.value = [userRoles.value]
@@ -20,8 +22,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     const routePermissions =
       typeof permissions === 'string' ? [permissions] : permissions
 
-    return routePermissions.some((permission) => {
-      return (userPermissions.value || []).includes(permission)
+    return routePermissions.some((permission: string) => {
+      return userPermissions.value.includes(permission)
     })
   }
 
@@ -30,7 +32,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     const myRoles = typeof roles === 'string' ? [roles] : roles
 
-    return myRoles.some((role) => (userRoles.value || []).includes(role))
+    return myRoles.some((role) => userRoles.value.includes(role))
   }
 
   addRouteMiddleware('nuxt-permissions', (to, from) => {
@@ -63,7 +65,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     if (!binding) return true
     const activePermissions = typeof binding === 'string' ? [binding] : binding
     return !activePermissions.some((permission) =>
-      (userPermissions.value || []).includes(permission)
+      userPermissions.value.includes(permission)
     )
   }
 
@@ -82,21 +84,13 @@ export default defineNuxtPlugin((nuxtApp) => {
       if (!hasPermission(binding.value)) {
         el.remove()
       }
-    },
-    getSSRProps(binding) {
-      if (!hasPermission(binding.value)) {
-        return {
-          style: 'display: none'
-        }
-      }
-      return {}
     }
   })
 
   function hasNotRole(binding: string | string[] | undefined) {
     if (!binding) return true
     const activeRoles = typeof binding === 'string' ? [binding] : binding
-    return !activeRoles.some((role) => (userRoles.value || []).includes(role))
+    return !activeRoles.some((role) => userRoles.value.includes(role))
   }
 
   function hasRole(binding: string | string[]) {
@@ -105,18 +99,15 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   nuxtApp.vueApp.directive('role', {
     mounted(el, binding) {
+      if (binding.arg === 'not') {
+        if (hasRole(binding.value)) {
+          el.remove()
+        }
+        return
+      }
       if (!hasRole(binding.value)) {
         el.remove()
       }
-    },
-    getSSRProps(binding) {
-      if (!hasRole(binding.value)) {
-        return {
-          style: 'display: none'
-        }
-      }
-
-      return {}
     }
   })
 
