@@ -3,7 +3,7 @@ import type { ModuleOptions } from '../module'
 import { useRoles, usePermissions } from './composables'
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const config: ModuleOptions = useRuntimeConfig().public.nuxtPermissions
+  const config = useRuntimeConfig().public.nuxtPermissions as ModuleOptions
 
   const userRoles = useRoles()
   const userPermissions = usePermissions()
@@ -41,7 +41,10 @@ export default defineNuxtPlugin((nuxtApp) => {
       | undefined
     const routeRoles = to.meta?.roles as string | string[] | undefined
 
+    
+
     if (!routePermissions && !routeRoles) {
+      
       return true
     }
 
@@ -49,12 +52,15 @@ export default defineNuxtPlugin((nuxtApp) => {
       return true
     }
 
-    if (routeRoles && hasRequiredRoles(routeRoles)) {
+    if (routeRoles && hasRequiredRoles(routeRoles)) {      
       return true
     }
 
-    if (from.fullPath !== to.fullPath) {
-      return from.fullPath
+    if (config.redirectIfNotAllowed === false) {
+      if (from.fullPath !== to.fullPath) {
+        return from.fullPath
+      }
+      return false
     }
 
     return config.redirectIfNotAllowed

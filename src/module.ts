@@ -7,11 +7,11 @@ import {
 
 // Module options TypeScript inteface definition
 export interface ModuleOptions {
-  redirectIfNotAllowed: string
+  redirectIfNotAllowed: string | false
 }
 
 const defaults: ModuleOptions = {
-  redirectIfNotAllowed: '/'
+  redirectIfNotAllowed: false
 }
 
 export default defineNuxtModule<ModuleOptions>({
