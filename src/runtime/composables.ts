@@ -1,9 +1,10 @@
 import { useStorage } from '@vueuse/core'
+import type { Roles, Permissions } from '../types'
 
 export function useRoles() {
-  return useStorage<string[]>('roles', [])
+  return useStorage<Roles>('roles', [])
 }
 
 export function usePermissions() {
-  return useStorage<string[]>('permissions', [])
+  return useStorage<Permissions>('permissions', [])
 }

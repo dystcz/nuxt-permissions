@@ -1,5 +1,5 @@
 import { defineNuxtPlugin, addRouteMiddleware, useRuntimeConfig } from '#app'
-import type { ModuleOptions } from '../module'
+import type { ModuleOptions, Roles, Permissions } from '../types'
 import { useRoles, usePermissions } from './composables'
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -7,13 +7,6 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const userRoles = useRoles()
   const userPermissions = usePermissions()
-
-  if (typeof userRoles.value === 'string') {
-    userRoles.value = [userRoles.value]
-  }
-  if (typeof userPermissions.value === 'string') {
-    userPermissions.value = [userPermissions.value]
-  }
 
   function hasRequiredPermissions(permissions: string | string[] | undefined) {
     if (!permissions) return
@@ -41,10 +34,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       | undefined
     const routeRoles = to.meta?.roles as string | string[] | undefined
 
-    
-
     if (!routePermissions && !routeRoles) {
-      
       return true
     }
 
@@ -52,18 +42,18 @@ export default defineNuxtPlugin((nuxtApp) => {
       return true
     }
 
-    if (routeRoles && hasRequiredRoles(routeRoles)) {      
+    if (routeRoles && hasRequiredRoles(routeRoles)) {
       return true
     }
 
-    if (config.redirectIfNotAllowed === false) {
+    if (!config.redirectIfNotAllowed) {
       if (from.fullPath !== to.fullPath) {
         return from.fullPath
       }
       return false
     }
 
-    return config.redirectIfNotAllowed
+    return config.redirectIfNotAllowed || '/'
   })
 
   function hasNotPermission(binding: string | string[] | undefined) {

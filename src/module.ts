@@ -4,14 +4,10 @@ import {
   addImports,
   createResolver
 } from '@nuxt/kit'
-
-// Module options TypeScript inteface definition
-export interface ModuleOptions {
-  redirectIfNotAllowed: string | false
-}
+import type { ModuleOptions } from './types'
 
 const defaults: ModuleOptions = {
-  redirectIfNotAllowed: false
+  redirectIfNotAllowed: null
 }
 
 export default defineNuxtModule<ModuleOptions>({
