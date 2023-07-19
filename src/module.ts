@@ -19,6 +19,7 @@ export default defineNuxtModule<ModuleOptions>({
   // Default configuration options of the Nuxt module
   defaults,
   setup(options, nuxt) {
+    // @ts-ignore
     nuxt.options.runtimeConfig.public.nuxtPermissions = options
     const { resolve } = createResolver(import.meta.url)
     addPlugin(resolve('./runtime/plugin'))
