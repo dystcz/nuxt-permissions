@@ -65,6 +65,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   }
 
   function hasPermission(binding: string | string[]) {
+    if (!binding) return true
     return !hasNotPermission(binding)
   }
 
@@ -89,6 +90,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   }
 
   function hasRole(binding: string | string[]) {
+    if (!binding) return true
     return !hasNotRole(binding)
   }
 

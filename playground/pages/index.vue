@@ -62,6 +62,8 @@ const { $hasPermission, $hasRole } = useNuxtApp()
       This section is visible to admins only
     </div>
 
+    <div v-role="undefined">asdfasdfsdf</div>
+
     <div style="margin-top: 3rem" v-if="$hasPermission('edit')">
       This section is visible to user with permission "edit"
     </div>
