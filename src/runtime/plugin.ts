@@ -22,8 +22,18 @@ export default defineNuxtPlugin((nuxtApp) => {
   function hasRequiredRoles(roles: string | string[] | undefined) {
     if (!roles) return
 
+    const fullAccessRoles =
+      typeof config.fullAccessRoles === 'string'
+        ? [config.fullAccessRoles]
+        : config.fullAccessRoles
     const myRoles = typeof roles === 'string' ? [roles] : roles
 
+    if (
+      fullAccessRoles &&
+      fullAccessRoles.some((role) => userRoles.value.includes(role))
+    ) {
+      return true
+    }
     return myRoles.some((role) => userRoles.value.includes(role))
   }
 
@@ -91,6 +101,16 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   function hasRole(binding: string | string[]) {
     if (!binding) return true
+    const fullAccessRoles =
+      typeof config.fullAccessRoles === 'string'
+        ? [config.fullAccessRoles]
+        : config.fullAccessRoles
+    if (
+      fullAccessRoles &&
+      fullAccessRoles.some((role) => userRoles.value.includes(role))
+    ) {
+      return true
+    }
     return !hasNotRole(binding)
   }
 

@@ -7,7 +7,8 @@ import {
 import type { ModuleOptions } from './types'
 
 const defaults: ModuleOptions = {
-  redirectIfNotAllowed: null
+  redirectIfNotAllowed: null,
+  fullAccessRoles: null
 }
 
 export default defineNuxtModule<ModuleOptions>({
